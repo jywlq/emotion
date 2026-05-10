@@ -1,0 +1,62 @@
+[
+  {
+    "name": "织梦座",
+    "name_en": "Dreamweaver",
+    "pattern": [
+      "       ✦    ·  ✧",
+      "    ·       ✦    ·",
+      "       ✧  ·    ✦",
+      "    ·    🌟      ·",
+      "       ✦    ·  ✧"
+    ],
+    "dominant_traits": ["温柔", "创造力"]
+  },
+  {
+    "name": "星辰座",
+    "name_en": "Starseer",
+    "pattern": [
+      "    ✧           ·",
+      "        ✦    ✧",
+      "    ·       🌟    ·",
+      "        ✦    ✧",
+      "    ✧           ·"
+    ],
+    "dominant_traits": ["直觉", "神秘"]
+  },
+  {
+    "name": "探索座",
+    "name_en": "Pathfinder",
+    "pattern": [
+      "    ·  ✦  ✧  ·",
+      "       ╱    ╲",
+      "    · 🌟  ✧  ·",
+      "       ╲    ╱",
+      "    ·  ✧  ✦  ·"
+    ],
+    "dominant_traits": ["探索", "创造力"]
+  },
+  {
+    "name": "月影座",
+    "name_en": "Moonshadow",
+    "pattern": [
+      "    ✧  ·     ✦",
+      "       🌟  ·",
+      "    ·     ✧     ·",
+      "       ✦  🌟",
+      "    ✦     ·  ✧"
+    ],
+    "dominant_traits": ["温柔", "直觉"]
+  },
+  {
+    "name": "深渊座",
+    "name_en": "Abysswalker",
+    "pattern": [
+      "    ✦  ·  ✧  ·  ✦",
+      "       ╲  ·  ╱",
+      "          🌟",
+      "       ╱  ·  ╲",
+      "    ✧  ·  ✦  ·  ✧"
+    ],
+    "dominant_traits": ["神秘", "探索"]
+  }
+]
