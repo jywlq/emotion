@@ -18,13 +18,13 @@ from rich.console import Console
 console = Console()
 
 # 默认配置
-DEFAULT_BASE_URL = "https://api.mimo-v2.com/v1"
-DEFAULT_MODEL = "mimo-v2-pro"
+DEFAULT_BASE_URL = "https://api.xiaomimimo.com/v1"
+DEFAULT_MODEL = "mimo-v2-flash"
 
 # 可用模型列表
 AVAILABLE_MODELS = {
-    "1": {"id": "mimo-v2-pro", "name": "MiMo-V2-Pro", "desc": "平衡性能，推荐"},
-    "2": {"id": "mimo-v2.5-pro", "name": "MiMo-V2.5-Pro", "desc": "最强，深度思考"},
+    "1": {"id": "mimo-v2-flash", "name": "MiMo-V2-Flash", "desc": "轻量快速，日常使用"},
+    "2": {"id": "mimo-v2-pro", "name": "MiMo-V2-Pro", "desc": "旗舰模型，深度推理"},
 }
 
 

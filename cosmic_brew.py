@@ -51,9 +51,12 @@ def get_active_engine():
     """获取当前可用的AI引擎（MiMo > Gemini > 本地）"""
     global mimo_engine
     if mimo_engine and mimo_engine.is_available():
+        console.print("[dim]  [调试] 使用 MiMo AI 引擎[/dim]")
         return mimo_engine
     if gemini_engine.is_available():
+        console.print("[dim]  [调试] 使用 Gemini 引擎[/dim]")
         return gemini_engine
+    console.print("[dim]  [调试] 使用本地引擎（未接入API）[/dim]")
     return local_engine
 
 
