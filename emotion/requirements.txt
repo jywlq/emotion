@@ -1,0 +1,4 @@
+rich>=13.0.0
+openai>=1.0.0
+# 可选：Gemini 备选引擎
+# google-generativeai>=0.3.0
