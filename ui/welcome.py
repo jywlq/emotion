@@ -31,38 +31,39 @@ def _get_banner() -> str:
 
 
 def show_welcome():
-    """展示欢迎界面，带闪烁星星动画"""
-    # 第一幕：黑暗中星星渐次亮起
+    """展示欢迎界面，带星空渐亮动画"""
     console.clear()
 
-    for frame in range(3):
-        stars = _generate_stars(60, 3)
-        star_text = Text(stars, style="dim magenta")
-        console.print(Align.center(star_text))
-        time.sleep(0.3)
+    # 第一幕：暗夜中星星渐次亮起
+    for frame in range(4):
+        console.clear()
+        stars = _generate_stars(60, 5)
+        console.print(Align.center(Text(stars, style="dim magenta")))
+        time.sleep(0.25)
 
-    # 第二幕：招牌出现
+    # 第二幕：招牌浮现
     console.print()
     banner = Text(_get_banner(), style="bold magenta")
     console.print(Align.center(banner))
     console.print()
 
-    # 第三幕：副标题浮现
+    # 第三幕：底部星星 + 副标题浮现
     stars_bottom = _generate_stars(60, 2)
     console.print(Align.center(Text(stars_bottom, style="dim cyan")))
-    time.sleep(0.3)
+    time.sleep(0.4)
 
-    # 第四幕：咖啡师问候
-    greeting = Panel(
-        "[bold cyan]欢迎光临~ 我是你的宇宙咖啡师 🌟\n[/bold cyan]"
-        "[dim]在这里，每一杯咖啡都藏着星辰的秘密[/dim]",
-        border_style="magenta",
-        padding=(1, 2),
-    )
-    console.print(Align.center(greeting))
+    # 第四幕：咖啡师问候语逐行打出
     console.print()
+    greeting_lines = [
+        ("欢迎光临~", "bold cyan", 0.3),
+        ("我是你的宇宙咖啡师 🌟", "cyan", 0.3),
+        ("在这里，每一杯咖啡都藏着星辰的秘密", "dim cyan", 0.5),
+    ]
+    for text, style, delay in greeting_lines:
+        console.print(f"  [{style}]{text}[/{style}]")
+        time.sleep(delay)
 
-    # 等待用户准备好了
+    console.print()
     console.print("[dim]  按下回车开始你的宇宙之旅...[/dim]", end="")
     input()
 

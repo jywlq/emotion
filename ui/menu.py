@@ -85,12 +85,22 @@ def show_drink_served(drink: dict):
     """展示"咖啡上桌"的仪式感"""
     console.print()
     console.print(f"  {drink['emoji']} 好选择！让我为你泡一杯 [bold {drink['color']}]{drink['name']}[/bold {drink['color']}]...")
+    console.print()
 
-    # 制作动画
-    steps = ["研磨星尘", "注入银河", "拉花成星", "点缀月光"]
-    for step in steps:
+    # 制作动画（逐步呈现，有流程感）
+    steps = [
+        ("研磨星尘", 0.5),
+        ("注入银河", 0.5),
+        ("拉花成星", 0.6),
+        ("点缀月光", 0.4),
+    ]
+    for step, delay in steps:
         console.print(f"    [dim]◈ {step}...[/dim]")
-        time.sleep(0.3)
+        time.sleep(delay)
+
+    console.print()
+    console.print("    [dim]✧ 完成[/dim]")
+    time.sleep(0.3)
 
     console.print()
     flavor_panel = Panel(

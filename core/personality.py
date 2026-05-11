@@ -74,8 +74,13 @@ class PersonalityEngine:
         return "星尘旅者"
 
 
-def ask_personality_questions(drink: dict) -> "PersonalityEngine":
-    """运行性格问答流程，返回性格引擎实例"""
+def ask_personality_questions(drink: dict, pause_callback=None) -> "PersonalityEngine":
+    """运行性格问答流程，返回性格引擎实例
+    
+    Args:
+        drink: 饮品数据
+        pause_callback: 题间过渡动画回调函数，接受题号参数
+    """
     from rich.console import Console
 
     console = Console()
@@ -108,6 +113,8 @@ def ask_personality_questions(drink: dict) -> "PersonalityEngine":
             except ValueError:
                 console.print("  [dim]请输入数字编号哦~[/dim]")
 
-        console.print()
+        # 题间过渡动画（不是最后一题时）
+        if pause_callback and i < len(questions):
+            pause_callback(i)
 
     return engine
