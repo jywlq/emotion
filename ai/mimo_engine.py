@@ -68,6 +68,13 @@ class MiMoEngine:
             self._model = config.get("model", DEFAULT_MODEL)
             self._base_url = config.get("base_url", DEFAULT_BASE_URL)
 
+        # 自动修复旧地址
+        old_urls = ["https://api.mimo-v2.com/v1", "https://api.mimov2.com/v1"]
+        if self._base_url in old_urls:
+            self._base_url = DEFAULT_BASE_URL
+            if self._api_key:
+                _save_config({"api_key": self._api_key, "model": self._model, "base_url": self._base_url})
+
     @property
     def api_key(self) -> str:
         return self._api_key
@@ -118,12 +125,16 @@ class MiMoEngine:
                     {"role": "system", "content": system_prompt},
                     {"role": "user", "content": user_message},
                 ],
-                max_completion_tokens=max_tokens,
+                max_tokens=max_tokens,
                 temperature=0.9,
             )
-            return response.choices[0].message.content.strip()
+            content = response.choices[0].message.content
+            if content:
+                return content.strip()
+            return None
         except Exception as e:
-            console.print(f"[dim]  [MiMo] 请求异常: {str(e)[:50]}...[/dim]")
+            error_msg = str(e)
+            console.print(f"[dim]  [MiMo] 请求异常: {error_msg[:80]}[/dim]")
             return None
 
     # ===== 性格解读 =====
