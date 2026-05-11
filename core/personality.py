@@ -1,4 +1,7 @@
-"""性格计算引擎 - 从饮品选择和问答中计算五维性格"""
+"""性格计算引擎 - 从饮品选择和问答中计算五维性格
+
+支持追问式对话：AI 咖啡师根据你的回答追问，挖掘更深层的性格
+"""
 
 import json
 import os
@@ -18,6 +21,7 @@ class PersonalityEngine:
         self.scores = {t: 0 for t in TRAIT_NAMES}
         self.drink = None
         self.answers = []
+        self.followup_insights = []  # AI 追问产生的洞察
 
     def add_drink(self, drink: dict):
         """加入饮品选择带来的性格分数"""
@@ -73,13 +77,18 @@ class PersonalityEngine:
             return self.drink.get("archetype", "星尘旅者")
         return "星尘旅者"
 
+    def add_insight(self, insight: str):
+        """添加 AI 追问洞察"""
+        self.followup_insights.append(insight)
 
-def ask_personality_questions(drink: dict, pause_callback=None) -> "PersonalityEngine":
+
+def ask_personality_questions(drink: dict, pause_callback=None, mimo_engine=None) -> "PersonalityEngine":
     """运行性格问答流程，返回性格引擎实例
     
     Args:
         drink: 饮品数据
         pause_callback: 题间过渡动画回调函数，接受题号参数
+        mimo_engine: MiMo AI 引擎实例（可选，启用追问功能）
     """
     from rich.console import Console
 
@@ -112,6 +121,26 @@ def ask_personality_questions(drink: dict, pause_callback=None) -> "PersonalityE
                     console.print("  [dim]请输入有效的编号~[/dim]")
             except ValueError:
                 console.print("  [dim]请输入数字编号哦~[/dim]")
+
+        # AI 追问环节
+        if mimo_engine and mimo_engine.is_available():
+            selected_text = q["options"][idx]["text"]
+            followup = mimo_engine.generate_followup_question(
+                q["question"], selected_text, i
+            )
+            if followup:
+                console.print()
+                console.print(f"  [bold cyan]咖啡师:[/bold cyan] {followup}")
+                followup_answer = input("  [dim]你的回答:[/dim] ").strip()
+
+                if followup_answer:
+                    # AI 根据追问回答生成洞察
+                    insight = mimo_engine.generate_followup_reading(
+                        q["question"], selected_text, followup, followup_answer
+                    )
+                    if insight:
+                        engine.add_insight(insight)
+                        console.print(f"  [dim italic]「{insight}」[/dim italic]")
 
         # 题间过渡动画（不是最后一题时）
         if pause_callback and i < len(questions):
